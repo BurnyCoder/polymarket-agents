@@ -1,8 +1,0 @@
-{
-  "command": "ask_llm",
-  "timestamp": "2026-01-12T18:13:46.923926",
-  "params": {
-    "user_input": "What is the capital of France?"
-  },
-  "data": "The capital of France is Paris. This is a factual question with a probability of 100% that Paris is the capital of France."
-}

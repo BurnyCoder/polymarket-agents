@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-01-12T21:11:38.404924",
+  "total_markets_analyzed": 10,
+  "recommendations": [
+    {
+      "market_id": "517310",
+      "question": "Will Trump deport less than 250,000?",
+      "event_title": "How many people will Trump deport in 2025?",
+      "market_yes_price": 2.15,
+      "ai_prediction": 75.0,
+      "edge": 72.85,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe Will Trump deport less than 250,000? has a likelihood `0.75` for outcome of `Yes`."
+    },
+    {
+      "market_id": "516926",
+      "question": "MicroStrategy sells any Bitcoin in 2025?",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "market_yes_price": 0.0,
+      "ai_prediction": 65.0,
+      "edge": 65.0,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe MicroStrategy sells any Bitcoin in 2025 has a likelihood `0.65` for outcome of `Yes`."
+    },
+    {
+      "market_id": "517231",
+      "question": "Macron out in 2025?",
+      "event_title": "Macron out by...?",
+      "market_yes_price": 0.0,
+      "ai_prediction": 45.0,
+      "edge": 45.0,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe Macron out in 2025? has a likelihood `0.45` for outcome of `Yes`."
+    },
+    {
+      "market_id": "516950",
+      "question": "Kraken IPO in 2025?",
+      "event_title": "Kraken IPO by ___ ?",
+      "market_yes_price": 0.0,
+      "ai_prediction": 40.0,
+      "edge": 40.0,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe Kraken IPO in 2025? has a likelihood `0.4` for outcome of `Yes`."
+    },
+    {
+      "market_id": "517321",
+      "question": "Will Trump deport 750,000 or more people in 2025?",
+      "event_title": "Will Trump deport 750,000 or more people in 2025?",
+      "market_yes_price": 4.1000000000000005,
+      "ai_prediction": 35.0,
+      "edge": 30.9,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe Will Trump deport 750,000 or more people in 2025? has a likelihood `0.35` for outcome of `Yes`."
+    },
+    {
+      "market_id": "516938",
+      "question": "Will 2025 be the hottest year on record?",
+      "event_title": "Will 2025 be the hottest year on record?",
+      "market_yes_price": 0.25,
+      "ai_prediction": 30.5,
+      "edge": 30.25,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe Will 2025 be the hottest year on record? has a likelihood `30.5%` for outcome of `Yes`."
+    },
+    {
+      "market_id": "517548",
+      "question": "Will the next UK election be called by March 31?",
+      "event_title": "UK election called by...?",
+      "market_yes_price": 0.0,
+      "ai_prediction": 30.0,
+      "edge": 30.0,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe Will the next UK election be called by March 31? has a likelihood `0.3` for outcome of `Yes`."
+    },
+    {
+      "market_id": "521029",
+      "question": "China x India military clash by December 31?",
+      "event_title": "China x India military clash by...?",
+      "market_yes_price": 0.0,
+      "ai_prediction": 25.0,
+      "edge": 25.0,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe China x India military clash by December 31? has a likelihood `0.25` for outcome of `Yes`."
+    },
+    {
+      "market_id": "521103",
+      "question": "NATO/EU troops fighting in Ukraine in 2025?",
+      "event_title": "NATO/EU troops fighting in Ukraine by...?",
+      "market_yes_price": 0.0,
+      "ai_prediction": 25.0,
+      "edge": 25.0,
+      "signal": "BUY YES",
+      "raw_prediction": "I believe NATO/EU troops fighting in Ukraine in 2025 has a likelihood `0.25` for outcome of `Yes`."
+    },
+    {
+      "market_id": "521255",
+      "question": "Will Trump & Elon reduce the deficit in 2025? ",
+      "event_title": "Will Trump & Elon reduce the deficit in 2025? ",
+      "market_yes_price": 11.25,
+      "ai_prediction": 25.0,
+      "edge": 13.75,
+      "signal": "HOLD",
+      "raw_prediction": "I believe Will Trump & Elon reduce the deficit in 2025? has a likelihood `25.0%` for outcome of `Yes`."
+    }
+  ]
+}

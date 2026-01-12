@@ -1,0 +1,65 @@
+{
+  "command": "recommendations",
+  "timestamp": "2026-01-12T22:23:23.372338",
+  "params": {
+    "limit": 5,
+    "min_edge": 15.0
+  },
+  "data": {
+    "timestamp": "2026-01-12T22:23:23.372182",
+    "total_markets_analyzed": 5,
+    "min_edge_threshold": 15.0,
+    "recommendations": [
+      {
+        "market_id": "516938",
+        "question": "Will 2025 be the hottest year on record?",
+        "event_title": "",
+        "market_yes_price": 0.25,
+        "ai_prediction": 2025.0,
+        "edge": 2024.75,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will 2025 be the hottest year on record? has a likelihood `25.5%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517314",
+        "question": "Will Trump deport 750,000-1,000,000 people?",
+        "event_title": "750k-1m",
+        "market_yes_price": 2.35,
+        "ai_prediction": 750.0,
+        "edge": 747.65,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 750,000-1,000,000 people? has a likelihood `0.45` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517313",
+        "question": "Will Trump deport 500,000-750,000- people?",
+        "event_title": "500-750k",
+        "market_yes_price": 4.35,
+        "ai_prediction": 500.0,
+        "edge": 495.65,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 500,000-750,000- people? has a likelihood `0.65` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517310",
+        "question": "Will Trump deport less than 250,000?",
+        "event_title": "<250k",
+        "market_yes_price": 2.15,
+        "ai_prediction": 250.0,
+        "edge": 247.85,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport less than 250,000? has a likelihood `0.75` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517311",
+        "question": "Will Trump deport 250,000-500,000 people?",
+        "event_title": "250-500k",
+        "market_yes_price": 90.35,
+        "ai_prediction": 250.0,
+        "edge": 159.65,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 250,000-500,000 people? has a likelihood `0.65` for outcome of `Yes`."
+      }
+    ]
+  }
+}

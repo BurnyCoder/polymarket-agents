@@ -1,8 +1,0 @@
-{
-  "command": "ask_llm",
-  "timestamp": "2026-01-12T18:29:51.453922",
-  "params": {
-    "user_input": "What is 2+2?"
-  },
-  "data": "This is a simple arithmetic question with a definite answer. The sum of 2+2 is 4."
-}
