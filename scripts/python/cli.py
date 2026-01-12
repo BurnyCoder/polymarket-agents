@@ -1,4 +1,7 @@
 import typer
+import json
+import os
+from datetime import datetime
 from devtools import pprint
 
 from agents.polymarket.polymarket import Polymarket
@@ -7,6 +10,30 @@ from agents.connectors.news import News
 from agents.application.trade import Trader
 from agents.application.executor import Executor
 from agents.application.creator import Creator
+
+RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "results")
+os.makedirs(RESULTS_DIR, exist_ok=True)
+
+
+def save_result(command_name: str, data: any, params: dict = None) -> str:
+    """Save command result to results folder with timestamp."""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{command_name}_{timestamp}.json"
+    filepath = os.path.join(RESULTS_DIR, filename)
+
+    result = {
+        "command": command_name,
+        "timestamp": datetime.now().isoformat(),
+        "params": params or {},
+        "data": data
+    }
+
+    with open(filepath, "w") as f:
+        json.dump(result, f, indent=2, default=str)
+
+    print(f"Results saved to: {filepath}")
+    return filepath
+
 
 app = typer.Typer()
 polymarket = Polymarket()
@@ -26,6 +53,7 @@ def get_all_markets(limit: int = 5, sort_by: str = "spread") -> None:
         markets = sorted(markets, key=lambda x: x.spread, reverse=True)
     markets = markets[:limit]
     pprint(markets)
+    save_result("get_all_markets", [m.__dict__ for m in markets], {"limit": limit, "sort_by": sort_by})
 
 
 @app.command()
@@ -35,6 +63,7 @@ def get_relevant_news(keywords: str) -> None:
     """
     articles = newsapi_client.get_articles_for_cli_keywords(keywords)
     pprint(articles)
+    save_result("get_relevant_news", articles, {"keywords": keywords})
 
 
 @app.command()
@@ -49,6 +78,7 @@ def get_all_events(limit: int = 5, sort_by: str = "number_of_markets") -> None:
         events = sorted(events, key=lambda x: len(x.markets), reverse=True)
     events = events[:limit]
     pprint(events)
+    save_result("get_all_events", [e.__dict__ for e in events], {"limit": limit, "sort_by": sort_by})
 
 
 @app.command()
@@ -68,6 +98,7 @@ def query_local_markets_rag(vector_db_directory: str, query: str) -> None:
         local_directory=vector_db_directory, query=query
     )
     pprint(response)
+    save_result("query_local_markets_rag", response, {"vector_db_directory": vector_db_directory, "query": query})
 
 
 @app.command()
@@ -83,6 +114,7 @@ def ask_superforecaster(event_title: str, market_question: str, outcome: str) ->
         event_title=event_title, market_question=market_question, outcome=outcome
     )
     print(f"Response:{response}")
+    save_result("ask_superforecaster", response, {"event_title": event_title, "market_question": market_question, "outcome": outcome})
 
 
 @app.command()
@@ -93,6 +125,7 @@ def create_market() -> None:
     c = Creator()
     market_description = c.one_best_market()
     print(f"market_description: str = {market_description}")
+    save_result("create_market", market_description, {})
 
 
 @app.command()
@@ -103,6 +136,7 @@ def ask_llm(user_input: str) -> None:
     executor = Executor()
     response = executor.get_llm_response(user_input)
     print(f"LLM Response: {response}")
+    save_result("ask_llm", response, {"user_input": user_input})
 
 
 @app.command()
@@ -113,6 +147,7 @@ def ask_polymarket_llm(user_input: str) -> None:
     executor = Executor()
     response = executor.get_polymarket_llm(user_input=user_input)
     print(f"LLM + current markets&events response: {response}")
+    save_result("ask_polymarket_llm", response, {"user_input": user_input})
 
 
 @app.command()
