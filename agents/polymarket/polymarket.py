@@ -237,7 +237,8 @@ class Polymarket:
 
     def get_all_events(self) -> "list[SimpleEvent]":
         events = []
-        res = httpx.get(self.gamma_events_endpoint)
+        # Add params to get open (not closed) events
+        res = httpx.get(self.gamma_events_endpoint, params={"closed": "false", "active": "true"})
         if res.status_code == 200:
             print(len(res.json()))
             for event in res.json():
@@ -273,9 +274,10 @@ class Polymarket:
     ) -> "list[SimpleEvent]":
         tradeable_events = []
         for event in events:
+            # Note: 'restricted' field is market-level restriction, not geo-blocking
+            # Geo-blocking is handled by CLOB API at order time
             if (
                 event.active
-                and not event.restricted
                 and not event.archived
                 and not event.closed
             ):
