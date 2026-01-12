@@ -105,7 +105,13 @@ This repo is inteded for use with Python 3.9
    python scripts/python/cli.py
    ```
 
-   Or just go trade! 
+   Or get AI trading recommendations:
+
+   ```
+   python agents/application/trade.py recommendations 10
+   ```
+
+   Or run the full autonomous trading flow:
 
    ```
    python agents/application/trade.py
@@ -218,6 +224,57 @@ START: Trader.one_best_trade()
   └─► Save results → ./results/one_best_trade_{timestamp}.json
 ```
 
+### Recommendations Flow (`get_recommendations`)
+
+A simplified flow that generates AI trading recommendations without the full RAG pipeline:
+
+```
+START: Trader.get_recommendations(limit=10)
+  │
+  ├─► Fetch active markets from Gamma API
+  │   └─► GET https://gamma-api.polymarket.com/markets?closed=false&active=true
+  │
+  ├─► For each market:
+  │   ├─► Get AI superforecaster prediction
+  │   │   └─► LLM predicts probability for "Yes" outcome
+  │   ├─► Compare AI prediction vs market price
+  │   └─► Calculate edge (AI% - Market%)
+  │
+  ├─► Generate signals:
+  │   ├─► BUY YES if edge > +15%
+  │   ├─► BUY NO if edge < -15%
+  │   └─► HOLD otherwise
+  │
+  └─► Save results → ./results/recommendations_{timestamp}.json
+```
+
+**Usage:**
+```bash
+# Get recommendations for 10 markets (default)
+python agents/application/trade.py recommendations
+
+# Get recommendations for specific number of markets
+python agents/application/trade.py recommendations 20
+```
+
+**Output format:**
+```json
+{
+  "timestamp": "2024-01-12T22:23:54",
+  "total_markets_analyzed": 10,
+  "recommendations": [
+    {
+      "market_id": "12345",
+      "question": "Will X happen?",
+      "market_yes_price": 25.0,
+      "ai_prediction": 75.0,
+      "edge": 50.0,
+      "signal": "BUY YES"
+    }
+  ]
+}
+```
+
 ### Component Architecture
 
 ```
@@ -264,7 +321,7 @@ START: Trader.one_best_trade()
 | Prompts | `agents/application/prompts.py` | AI prompt templates |
 | Data Models | `agents/utils/objects.py` | Pydantic models |
 | CLI | `scripts/python/cli.py` | Command-line interface |
-| Trade Entry | `agents/application/trade.py` | Direct trade execution |
+| Trade Entry | `agents/application/trade.py` | Trading commands (recommendations, one_best_trade) |
 
 ### Scripts
 
