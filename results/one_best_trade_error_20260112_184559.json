@@ -1,0 +1,15 @@
+{
+  "command": "one_best_trade_error",
+  "timestamp": "2026-01-12T18:45:59.887156",
+  "params": {},
+  "data": {
+    "steps": [
+      {
+        "step": 1,
+        "action": "found_events",
+        "count": 0
+      }
+    ],
+    "error": "generator raised StopIteration"
+  }
+}

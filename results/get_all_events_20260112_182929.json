@@ -1,0 +1,9 @@
+{
+  "command": "get_all_events",
+  "timestamp": "2026-01-12T18:29:29.247871",
+  "params": {
+    "limit": 2,
+    "sort_by": "number_of_markets"
+  },
+  "data": []
+}
