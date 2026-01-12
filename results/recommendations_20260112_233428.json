@@ -1,0 +1,15 @@
+{
+  "command": "recommendations",
+  "timestamp": "2026-01-12T23:34:28.508666",
+  "params": {
+    "limit": 10,
+    "min_edge": 15.0,
+    "max_days_until_expiry": 3
+  },
+  "data": {
+    "timestamp": "2026-01-12T23:34:28.508602",
+    "total_markets_analyzed": 0,
+    "min_edge_threshold": 15.0,
+    "recommendations": []
+  }
+}

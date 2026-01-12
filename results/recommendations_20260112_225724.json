@@ -1,0 +1,215 @@
+{
+  "command": "recommendations",
+  "timestamp": "2026-01-12T22:57:24.457158",
+  "params": {
+    "limit": 20,
+    "min_edge": 15.0
+  },
+  "data": {
+    "timestamp": "2026-01-12T22:57:24.456937",
+    "total_markets_analyzed": 20,
+    "min_edge_threshold": 15.0,
+    "recommendations": [
+      {
+        "market_id": "517310",
+        "question": "Will Trump deport less than 250,000?",
+        "event_title": "<250k",
+        "market_yes_price": 2.6,
+        "ai_prediction": 75.0,
+        "edge": 72.4,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport less than 250,000? has a likelihood `0.75` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517315",
+        "question": "Will Trump deport 1,000,000-1,250,000 people?",
+        "event_title": "1-1.25m",
+        "market_yes_price": 0.3,
+        "ai_prediction": 65.0,
+        "edge": 64.7,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 1,000,000-1,250,000 people? has a likelihood `0.65` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517319",
+        "question": "Will Trump deport 2,000,000 or more people?",
+        "event_title": "2m+",
+        "market_yes_price": 1.35,
+        "ai_prediction": 65.0,
+        "edge": 63.65,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 2,000,000 or more people? has a likelihood `0.65` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517321",
+        "question": "Will Trump deport 750,000 or more people in 2025?",
+        "event_title": "",
+        "market_yes_price": 4.0,
+        "ai_prediction": 65.0,
+        "edge": 61.0,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 750,000 or more people in 2025? has a likelihood `0.65` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517313",
+        "question": "Will Trump deport 500,000-750,000- people?",
+        "event_title": "500-750k",
+        "market_yes_price": 4.25,
+        "ai_prediction": 65.0,
+        "edge": 60.75,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 500,000-750,000- people? has a likelihood `0.65` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521963",
+        "question": "Will Elon cut the budget by at least 10% in 2025?",
+        "event_title": "",
+        "market_yes_price": 0.6,
+        "ai_prediction": 60.0,
+        "edge": 59.4,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Elon cut the budget by at least 10% in 2025? has a likelihood `60.0%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521964",
+        "question": "Will Elon cut the budget by at least 5% in 2025?",
+        "event_title": "",
+        "market_yes_price": 1.15,
+        "ai_prediction": 45.0,
+        "edge": 43.85,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Elon cut the budget by at least 5% in 2025? has a likelihood `0.45` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517314",
+        "question": "Will Trump deport 750,000-1,000,000 people?",
+        "event_title": "750k-1m",
+        "market_yes_price": 3.1,
+        "ai_prediction": 45.0,
+        "edge": 41.9,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 750,000-1,000,000 people? has a likelihood `0.45` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521944",
+        "question": "Will Elon and DOGE cut less than $50b in federal spending in 2025?",
+        "event_title": "<$50B",
+        "market_yes_price": 99.7,
+        "ai_prediction": 60.0,
+        "edge": -39.7,
+        "signal": "BUY NO",
+        "raw_prediction": "I believe Will Elon and DOGE cut less than $50b in federal spending in 2025? has a likelihood `60.0%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517317",
+        "question": "Will Trump deport 1,500,000-1,750,000 people?",
+        "event_title": "1.5-1.75m",
+        "market_yes_price": 0.6,
+        "ai_prediction": 35.0,
+        "edge": 34.4,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 1,500,000-1,750,000 people? has a likelihood `0.35` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517316",
+        "question": "Will Trump deport 1,250,000-1,500,000 people?",
+        "event_title": "1.25-1.5m",
+        "market_yes_price": 1.35,
+        "ai_prediction": 35.0,
+        "edge": 33.65,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 1,250,000-1,500,000 people? has a likelihood `0.35` for outcome of `Yes`."
+      },
+      {
+        "market_id": "516938",
+        "question": "Will 2025 be the hottest year on record?",
+        "event_title": "",
+        "market_yes_price": 0.25,
+        "ai_prediction": 30.5,
+        "edge": 30.25,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will 2025 be the hottest year on record? has a likelihood `30.5%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517318",
+        "question": "Will Trump deport 1,750,000-2,000,000 people?",
+        "event_title": "1.75-2m",
+        "market_yes_price": 0.4,
+        "ai_prediction": 30.5,
+        "edge": 30.1,
+        "signal": "BUY YES",
+        "raw_prediction": "I believe Will Trump deport 1,750,000-2,000,000 people? has a likelihood `30.5%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "517311",
+        "question": "Will Trump deport 250,000-500,000 people?",
+        "event_title": "250-500k",
+        "market_yes_price": 89.95,
+        "ai_prediction": 65.0,
+        "edge": -24.95,
+        "signal": "BUY NO",
+        "raw_prediction": "I believe Will Trump deport 250,000-500,000 people? has a likelihood `0.65` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521948",
+        "question": "Will Elon and DOGE cut between $200-250b in federal spending in 2025?",
+        "event_title": "$200-250B",
+        "market_yes_price": 0.05,
+        "ai_prediction": 10.0,
+        "edge": 9.95,
+        "signal": "HOLD",
+        "raw_prediction": "I believe Will Elon and DOGE cut between $200-250b in federal spending in 2025? has a likelihood `10%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521946",
+        "question": "Will Elon and DOGE cut between $100-150b in federal spending in 2025?",
+        "event_title": "$100-150B",
+        "market_yes_price": 0.05,
+        "ai_prediction": 5.0,
+        "edge": 4.95,
+        "signal": "HOLD",
+        "raw_prediction": "I believe Will Elon and DOGE cut between $100-150b in federal spending in 2025? has a likelihood `0.05` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521255",
+        "question": "Will Trump & Elon reduce the deficit in 2025? ",
+        "event_title": "",
+        "market_yes_price": 15.299999999999999,
+        "ai_prediction": 20.0,
+        "edge": 4.7,
+        "signal": "HOLD",
+        "raw_prediction": "I believe Will Trump & Elon reduce the deficit in 2025? has a likelihood `20.0%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521947",
+        "question": "Will Elon and DOGE cut between $150-200b in federal spending in 2025?",
+        "event_title": "$150-200B",
+        "market_yes_price": 0.3,
+        "ai_prediction": 5.0,
+        "edge": 4.7,
+        "signal": "HOLD",
+        "raw_prediction": "I believe Will Elon and DOGE cut between $150-200b in federal spending in 2025? has a likelihood `0.05` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521945",
+        "question": "Will Elon and DOGE cut between $50-100b in federal spending in 2025?",
+        "event_title": "$50-100B",
+        "market_yes_price": 0.44999999999999996,
+        "ai_prediction": 5.0,
+        "edge": 4.55,
+        "signal": "HOLD",
+        "raw_prediction": "I believe Will Elon and DOGE cut between $50-100b in federal spending in 2025? has a likelihood `5%` for outcome of `Yes`."
+      },
+      {
+        "market_id": "521949",
+        "question": "Will Elon and DOGE cut more than $250b in federal spending in 2025?",
+        "event_title": ">$250B",
+        "market_yes_price": 0.5,
+        "ai_prediction": 5.0,
+        "edge": 4.5,
+        "signal": "HOLD",
+        "raw_prediction": "I believe Will Elon and DOGE cut more than $250b in federal spending in 2025? has a likelihood `0.05` for outcome of `Yes`."
+      }
+    ]
+  }
+}

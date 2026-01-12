@@ -1,0 +1,76 @@
+{
+  "command": "recommendations",
+  "timestamp": "2026-01-12T23:45:30.438281",
+  "params": {
+    "limit": 10,
+    "min_edge": 15.0,
+    "max_days_until_expiry": 10
+  },
+  "data": {
+    "timestamp": "2026-01-12T23:45:30.438169",
+    "total_markets_analyzed": 5,
+    "min_edge_threshold": 15.0,
+    "recommendations": [
+      {
+        "market_id": "558909",
+        "question": "Will Indiana win the 2026 College Football National Championship?",
+        "event_title": "Indiana",
+        "market_yes_price": 73.7,
+        "ai_prediction": 5.0,
+        "edge": -68.7,
+        "signal": "BUY NO",
+        "end_date": "2026-01-20T00:00:00Z",
+        "days_until_expiry": 7,
+        "raw_prediction": "I believe Will Indiana win the 2026 College Football National Championship? has a likelihood `0.05` for outcome of `Yes`."
+      },
+      {
+        "market_id": "556108",
+        "question": "Will MegaETH perform an airdrop by June 30? ",
+        "event_title": "June 30, 2026",
+        "market_yes_price": 94.1,
+        "ai_prediction": 45.0,
+        "edge": -49.1,
+        "signal": "BUY NO",
+        "end_date": null,
+        "days_until_expiry": null,
+        "raw_prediction": "I believe Will MegaETH perform an airdrop by June 30? has a likelihood `0.45` for outcome of `Yes`."
+      },
+      {
+        "market_id": "546612",
+        "question": "Will OpenAI launch a new consumer hardware product by March 31, 2026?",
+        "event_title": "March 31, 2026",
+        "market_yes_price": 6.800000000000001,
+        "ai_prediction": 45.0,
+        "edge": 38.2,
+        "signal": "BUY YES",
+        "end_date": null,
+        "days_until_expiry": null,
+        "raw_prediction": "I believe Will OpenAI launch a new consumer hardware product by March 31, 2026? has a likelihood `0.45` for outcome of `Yes`."
+      },
+      {
+        "market_id": "558891",
+        "question": "Will Miami Florida win the 2026 College Football National Championship?",
+        "event_title": "Miami Florida",
+        "market_yes_price": 26.0,
+        "ai_prediction": 15.0,
+        "edge": -11.0,
+        "signal": "HOLD",
+        "end_date": "2026-01-20T00:00:00Z",
+        "days_until_expiry": 7,
+        "raw_prediction": "I believe Will Miami Florida win the 2026 College Football National Championship? has a likelihood `0.15` for outcome of `Yes`."
+      },
+      {
+        "market_id": "542416",
+        "question": "Will Baker Mayfield lead the NFL in passing yards this season?",
+        "event_title": "Baker Mayfield",
+        "market_yes_price": 0.05,
+        "ai_prediction": 5.0,
+        "edge": 4.95,
+        "signal": "HOLD",
+        "end_date": "2026-01-18T12:00:00Z",
+        "days_until_expiry": 5,
+        "raw_prediction": "I believe Will Baker Mayfield lead the NFL in passing yards this season has a likelihood of 5% for the outcome of \"Yes\"."
+      }
+    ]
+  }
+}

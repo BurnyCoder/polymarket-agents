@@ -7,7 +7,8 @@ import json
 import os
 import re
 import httpx
-from datetime import datetime
+from datetime import datetime, timezone
+from dateutil import parser as dateparser
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -111,7 +112,7 @@ class Trader:
     def incentive_farm(self):
         pass
 
-    def get_recommendations(self, limit: int = 10, min_edge: float = 15.0) -> list:
+    def get_recommendations(self, limit: int = 10, min_edge: float = 15.0, max_days_until_expiry: int = None) -> list:
         """
         Get trading recommendations by comparing AI predictions to market prices.
 
@@ -124,29 +125,53 @@ class Trader:
         Args:
             limit: Maximum number of markets to analyze (default: 10)
             min_edge: Minimum edge percentage for BUY signal (default: 15.0)
+            max_days_until_expiry: Only include markets expiring within this many days (default: None = no filter)
 
         Returns:
             List of recommendation dictionaries
         """
-        print(f"Fetching markets from Gamma API...")
+        if max_days_until_expiry:
+            print(f"Fetching markets expiring within {max_days_until_expiry} days...")
+        else:
+            print(f"Fetching markets from Gamma API...")
 
         # Fetch active markets directly
+        # When filtering by expiry, fetch more markets since most won't match
+        fetch_limit = 5000 if max_days_until_expiry else limit * 2
         response = httpx.get(
             "https://gamma-api.polymarket.com/markets",
-            params={"closed": "false", "active": "true", "limit": limit * 2}
+            params={"closed": "false", "active": "true", "limit": fetch_limit}
         )
         markets_data = response.json()
 
         # Filter to markets with valid data
         valid_markets = []
+        now = datetime.now(timezone.utc)
+
         for m in markets_data:
             if m.get("question") and m.get("outcomePrices"):
                 try:
                     prices = json.loads(m["outcomePrices"])
                     if len(prices) >= 1:
+                        # Check expiration filter
+                        if max_days_until_expiry and m.get("endDate"):
+                            try:
+                                end_date = dateparser.parse(m["endDate"])
+                                if end_date.tzinfo is None:
+                                    end_date = end_date.replace(tzinfo=timezone.utc)
+                                days_until = (end_date - now).days
+                                if days_until < 0 or days_until > max_days_until_expiry:
+                                    continue  # Skip markets outside expiry window
+                                m["_days_until_expiry"] = days_until
+                            except:
+                                continue  # Skip if can't parse date
                         valid_markets.append(m)
                 except:
                     pass
+
+        # Sort by expiration (soonest first) if filtering by expiry
+        if max_days_until_expiry:
+            valid_markets.sort(key=lambda x: x.get("_days_until_expiry", 999))
 
         valid_markets = valid_markets[:limit]
         print(f"Found {len(valid_markets)} valid markets to analyze")
@@ -196,11 +221,14 @@ class Trader:
                     "ai_prediction": ai_prob,
                     "edge": round(edge, 2),
                     "signal": signal,
+                    "end_date": market.get("endDate"),
+                    "days_until_expiry": market.get("_days_until_expiry"),
                     "raw_prediction": prediction
                 }
                 recommendations.append(rec)
 
-                print(f"   Market: {market_yes_price:.1f}% | AI: {ai_prob:.1f}% | Edge: {edge:+.1f}% | {signal}")
+                expiry_info = f" | Expires: {rec['days_until_expiry']}d" if rec['days_until_expiry'] is not None else ""
+                print(f"   Market: {market_yes_price:.1f}% | AI: {ai_prob:.1f}% | Edge: {edge:+.1f}% | {signal}{expiry_info}")
 
             except Exception as e:
                 print(f"   Error: {e}")
@@ -217,7 +245,7 @@ class Trader:
             "recommendations": recommendations
         }
 
-        filepath = save_result("recommendations", result_data, {"limit": limit, "min_edge": min_edge})
+        filepath = save_result("recommendations", result_data, {"limit": limit, "min_edge": min_edge, "max_days_until_expiry": max_days_until_expiry})
 
         print(f"\n{'='*60}")
         print(f"RECOMMENDATIONS SUMMARY ({len(recommendations)} markets)")
@@ -260,6 +288,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1 and sys.argv[1] == "recommendations":
         limit = int(sys.argv[2]) if len(sys.argv) > 2 else 10
-        t.get_recommendations(limit=limit)
+        max_days = int(sys.argv[3]) if len(sys.argv) > 3 else None
+        t.get_recommendations(limit=limit, max_days_until_expiry=max_days)
     else:
         t.one_best_trade()

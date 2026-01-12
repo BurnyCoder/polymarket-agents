@@ -229,10 +229,13 @@ START: Trader.one_best_trade()
 A simplified flow that generates AI trading recommendations without the full RAG pipeline:
 
 ```
-START: Trader.get_recommendations(limit=10)
+START: Trader.get_recommendations(limit=10, max_days_until_expiry=7)
   │
   ├─► Fetch active markets from Gamma API
   │   └─► GET https://gamma-api.polymarket.com/markets?closed=false&active=true
+  │
+  ├─► Filter markets (optional: by expiration date)
+  │   └─► Only include markets expiring within max_days_until_expiry
   │
   ├─► For each market:
   │   ├─► Get AI superforecaster prediction
@@ -255,6 +258,12 @@ python agents/application/trade.py recommendations
 
 # Get recommendations for specific number of markets
 python agents/application/trade.py recommendations 20
+
+# Get recommendations for markets expiring within 7 days
+python agents/application/trade.py recommendations 10 7
+
+# Get recommendations for markets expiring tomorrow (1 day)
+python agents/application/trade.py recommendations 10 1
 ```
 
 **Output format:**
@@ -269,7 +278,9 @@ python agents/application/trade.py recommendations 20
       "market_yes_price": 25.0,
       "ai_prediction": 75.0,
       "edge": 50.0,
-      "signal": "BUY YES"
+      "signal": "BUY YES",
+      "end_date": "2024-01-15T00:00:00Z",
+      "days_until_expiry": 3
     }
   ]
 }
