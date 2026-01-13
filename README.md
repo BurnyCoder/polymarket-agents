@@ -95,6 +95,7 @@ This repo is inteded for use with Python 3.9
    ```
    POLYGON_WALLET_PRIVATE_KEY=""
    OPENAI_API_KEY=""
+   XAI_API_KEY=""  # Optional: for Grok with X search (get from https://console.x.ai/)
    ```
 
 6. Load your wallet with USDC.
@@ -253,7 +254,7 @@ START: Trader.get_recommendations(limit=10, max_days_until_expiry=7)
 
 **Usage:**
 ```bash
-# Get recommendations for 10 markets (default)
+# Get recommendations for 10 markets (default, uses GPT-3.5)
 python agents/application/trade.py recommendations
 
 # Get recommendations for specific number of markets
@@ -264,7 +265,19 @@ python agents/application/trade.py recommendations 10 7
 
 # Get recommendations for markets expiring tomorrow (1 day)
 python agents/application/trade.py recommendations 10 1
+
+# Use Grok with X search for real-time predictions (requires XAI_API_KEY)
+python agents/application/trade.py recommendations 10 --grok
+
+# Combine expiry filter with Grok
+python agents/application/trade.py recommendations 10 7 --grok
 ```
+
+**AI Models:**
+| Model | Flag | Features |
+|-------|------|----------|
+| GPT-3.5 | (default) | Fast, uses training data only |
+| Grok | `--grok` | Real-time X search + web search |
 
 **Output format:**
 ```json

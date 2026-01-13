@@ -16,6 +16,15 @@ from agents.utils.objects import SimpleEvent, SimpleMarket
 from agents.application.prompts import Prompter
 from agents.polymarket.polymarket import Polymarket
 
+# Optional xAI SDK for Grok with X search
+try:
+    from xai_sdk import Client as XAIClient
+    from xai_sdk.chat import user as xai_user
+    from xai_sdk.tools import web_search, x_search
+    XAI_AVAILABLE = True
+except ImportError:
+    XAI_AVAILABLE = False
+
 def retain_keys(data, keys_to_retain):
     if isinstance(data, dict):
         return {
@@ -59,6 +68,59 @@ class Executor:
         result = self.llm.invoke(messages)
         return result.content
 
+    def get_grok_superforecast(
+        self, event_title: str, market_question: str, outcome: str
+    ) -> str:
+        """
+        Get prediction using Grok with X search and web search for real-time information.
+        Requires XAI_API_KEY environment variable.
+        """
+        if not XAI_AVAILABLE:
+            raise ImportError("xai-sdk not installed. Run: pip install xai-sdk>=1.3.1")
+
+        xai_api_key = os.getenv("XAI_API_KEY")
+        if not xai_api_key:
+            raise ValueError("XAI_API_KEY environment variable not set")
+
+        client = XAIClient(api_key=xai_api_key)
+
+        prompt = f"""You are a Superforecaster tasked with predicting the likelihood of events.
+
+Use X (Twitter) search and web search to find the latest real-time information about this topic.
+
+Event: {event_title}
+Question: {market_question}
+Outcome to predict: {outcome}
+
+Steps:
+1. Search X for recent posts, news, and sentiment about this topic
+2. Search the web for latest news articles and data
+3. Consider base rates and historical patterns
+4. Analyze all factors that could influence the outcome
+5. Provide a probability estimate
+
+Give your response in the following format:
+I believe {market_question} has a likelihood `[probability between 0.0 and 1.0]` for outcome of `{outcome}`.
+
+Include a brief explanation of what real-time information influenced your prediction."""
+
+        chat = client.chat.create(
+            model="grok-3-fast",
+            tools=[
+                web_search(),
+                x_search(),
+            ],
+        )
+
+        chat.append(xai_user(prompt))
+
+        # Collect full response
+        full_response = ""
+        for response, chunk in chat.stream():
+            if chunk.content:
+                full_response += chunk.content
+
+        return full_response
 
     def estimate_tokens(self, text: str) -> int:
         # This is a rough estimate. For more accurate results, consider using a tokenizer.

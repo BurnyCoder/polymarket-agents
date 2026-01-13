@@ -112,7 +112,7 @@ class Trader:
     def incentive_farm(self):
         pass
 
-    def get_recommendations(self, limit: int = 10, min_edge: float = 15.0, max_days_until_expiry: int = None) -> list:
+    def get_recommendations(self, limit: int = 10, min_edge: float = 15.0, max_days_until_expiry: int = None, use_grok: bool = False) -> list:
         """
         Get trading recommendations by comparing AI predictions to market prices.
 
@@ -126,14 +126,16 @@ class Trader:
             limit: Maximum number of markets to analyze (default: 10)
             min_edge: Minimum edge percentage for BUY signal (default: 15.0)
             max_days_until_expiry: Only include markets expiring within this many days (default: None = no filter)
+            use_grok: Use Grok with X search for real-time predictions (default: False)
 
         Returns:
             List of recommendation dictionaries
         """
+        model_name = "Grok (X search)" if use_grok else "GPT-3.5"
         if max_days_until_expiry:
-            print(f"Fetching markets expiring within {max_days_until_expiry} days...")
+            print(f"Fetching markets expiring within {max_days_until_expiry} days... (using {model_name})")
         else:
-            print(f"Fetching markets from Gamma API...")
+            print(f"Fetching markets from Gamma API... (using {model_name})")
 
         # Fetch active markets directly
         # When filtering by expiry, fetch more markets since most won't match
@@ -193,11 +195,18 @@ class Trader:
 
             try:
                 # Get AI prediction
-                prediction = self.agent.get_superforecast(
-                    event_title=event_title,
-                    market_question=question,
-                    outcome="Yes"
-                )
+                if use_grok:
+                    prediction = self.agent.get_grok_superforecast(
+                        event_title=event_title,
+                        market_question=question,
+                        outcome="Yes"
+                    )
+                else:
+                    prediction = self.agent.get_superforecast(
+                        event_title=event_title,
+                        market_question=question,
+                        outcome="Yes"
+                    )
 
                 # Parse prediction probability
                 ai_prob = self._parse_probability(prediction)
@@ -245,7 +254,7 @@ class Trader:
             "recommendations": recommendations
         }
 
-        filepath = save_result("recommendations", result_data, {"limit": limit, "min_edge": min_edge, "max_days_until_expiry": max_days_until_expiry})
+        filepath = save_result("recommendations", result_data, {"limit": limit, "min_edge": min_edge, "max_days_until_expiry": max_days_until_expiry, "use_grok": use_grok})
 
         print(f"\n{'='*60}")
         print(f"RECOMMENDATIONS SUMMARY ({len(recommendations)} markets)")
@@ -287,8 +296,11 @@ if __name__ == "__main__":
     t = Trader()
 
     if len(sys.argv) > 1 and sys.argv[1] == "recommendations":
-        limit = int(sys.argv[2]) if len(sys.argv) > 2 else 10
-        max_days = int(sys.argv[3]) if len(sys.argv) > 3 else None
-        t.get_recommendations(limit=limit, max_days_until_expiry=max_days)
+        # Parse arguments: recommendations [limit] [max_days] [--grok]
+        use_grok = "--grok" in sys.argv
+        args = [a for a in sys.argv[2:] if a != "--grok"]
+        limit = int(args[0]) if len(args) > 0 else 10
+        max_days = int(args[1]) if len(args) > 1 else None
+        t.get_recommendations(limit=limit, max_days_until_expiry=max_days, use_grok=use_grok)
     else:
         t.one_best_trade()
