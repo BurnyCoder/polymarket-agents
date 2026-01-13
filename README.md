@@ -149,21 +149,6 @@ Polymarket Agents connectors standardize data sources and order types.
 
 ## Data Flow
 
-### Key Concepts
-
-Before diving into the data flow, here's what the core technologies do:
-
-| Term | What It Is |
-|------|------------|
-| **[Web3.py](https://github.com/ethereum/web3.py)** | Python library for interacting with Ethereum-compatible blockchains. It connects to nodes via RPC to query balances, send transactions, and call smart contracts. |
-| **[Polygon RPC](https://chainlist.org/chain/137)** | Remote Procedure Call endpoint for the Polygon network (chain ID 137). Polygon is a Layer 2 scaling solution offering faster transactions and lower fees than Ethereum mainnet. |
-| **[CLOB](https://docs.polymarket.com/developers/CLOB/introduction)** | Central Limit Order Book - Polymarket's hybrid-decentralized exchange. Orders are matched off-chain for speed, but settled on-chain for security. Uses signed messages so funds stay in your wallet until trades execute. |
-| **[ERC20 (USDC)](https://polygonscan.com/token/0x2791bca1f2de4661ed88a30c99a7a9449aa84174)** | Token standard for fungible assets. USDC is a dollar-backed stablecoin issued by Circle. On Polygon, it's used as collateral for prediction market trades. |
-| **[ERC1155 (CTF)](https://docs.polymarket.com/developers/CTF/overview)** | Multi-token standard used by Gnosis Conditional Token Framework. Each prediction market outcome (YES/NO) becomes a distinct token. When you buy "YES" shares, you receive ERC1155 tokens redeemable for USDC if correct. |
-| **[Gamma API](https://docs.polymarket.com/developers/gamma-markets-api/overview)** | Polymarket's indexed market data service. Provides market metadata, prices, volumes, and event information via REST API. Read-only - does not execute trades. |
-| **[ChromaDB](https://docs.trychroma.com/)** | Open-source vector database for AI applications. Stores embeddings (numerical representations of text) and enables semantic similarity search for RAG (Retrieval-Augmented Generation). |
-| **[OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings)** | API that converts text into numerical vectors. Uses `text-embedding-3-small` model to represent market descriptions for similarity search. |
-
 ### Startup Initialization
 
 When the application starts, components initialize in this order:
@@ -173,10 +158,10 @@ When the application starts, components initialize in this order:
    └─► POLYGON_WALLET_PRIVATE_KEY, OPENAI_API_KEY, etc.
 
 2. Initialize Polymarket()
-   ├─► Web3 connection → Polygon RPC (polygon-rpc.com)
+   ├─► Connection → Polygon RPC (polygon-rpc.com)
    ├─► CLOB Client for order submission (clob.polymarket.com)
-   ├─► ERC20 (USDC) contract connection
-   └─► ERC1155 (CTF) conditional token contract
+   ├─► ERC20 (USDC) connection
+   └─► ERC1155 (CTF) 
 
 3. Initialize GammaMarketClient()
    └─► HTTP client for Gamma API (gamma-api.polymarket.com)
@@ -318,7 +303,7 @@ python agents/application/trade.py recommendations 10 7 --grok
     ▼                   ▼                   ▼         ▼
 ┌───────────┐   ┌─────────────┐   ┌──────────┐  ┌─────────────┐
 │Polymarket │   │GammaMarket  │   │ChatOpenAI│  │PolymarketRAG│
-│(Web3+CLOB)│   │Client (API) │   │  (LLM)   │  │  (Chroma)   │
+│  (CLOB)   │   │Client (API) │   │  (LLM)   │  │  (Chroma)   │
 └─────┬─────┘   └──────┬──────┘   └────┬─────┘  └──────┬──────┘
       │                │               │               │
       ▼                ▼               ▼               ▼
@@ -329,7 +314,7 @@ python agents/application/trade.py recommendations 10 7 --grok
 
 | Service | URL | Purpose |
 |---------|-----|---------|
-| [Polygon RPC](https://chainlist.org/chain/137) | `polygon-rpc.com` | Blockchain queries (chain ID 137) |
+| [Polygon RPC](https://chainlist.org/chain/137) | `polygon-rpc.com` | 
 | [Gamma API](https://docs.polymarket.com/developers/gamma-markets-api/overview) | `gamma-api.polymarket.com` | Market/event data |
 | [CLOB API](https://docs.polymarket.com/developers/CLOB/introduction) | `clob.polymarket.com` | Order submission |
 | [OpenAI](https://platform.openai.com/docs/guides/embeddings) | `api.openai.com` | LLM (gpt-3.5-turbo-16k) + Embeddings (text-embedding-3-small) |
@@ -338,7 +323,7 @@ python agents/application/trade.py recommendations 10 7 --grok
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| Core Trading | `agents/polymarket/polymarket.py` | Web3 + CLOB trading interface |
+| Core Trading | `agents/polymarket/polymarket.py` | CLOB trading interface |
 | Market Data | `agents/polymarket/gamma.py` | Gamma API client |
 | AI Orchestrator | `agents/application/executor.py` | LLM + RAG coordination |
 | Vector DB | `agents/connectors/chroma.py` | ChromaDB RAG operations |
